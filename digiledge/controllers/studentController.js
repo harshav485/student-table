@@ -1,7 +1,9 @@
 const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
-const Student = mongoose.model('Student')
+const Student = mongoose.model('Student');
+
+Students = require('../models/student.model');
 
 router.get('/', (req, res) => {
     res.render("student/addOrEdit.hbs", {
