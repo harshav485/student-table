@@ -10,7 +10,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    insertRecord(req, res);
+    if (req.body._id == '')
+        insertRecord(req, res);
+    else
+        updateRecord(req, res)
 });
 
 function insertRecord(req, res) {
@@ -27,7 +30,7 @@ function insertRecord(req, res) {
                 handlaValidationError(err, req.body);
                 res.render("student/addOrEdit.hbs", {
                     viewTitle: "Insert Student",
-                    employee: req.body
+                    student: req.body
                 });
             } else {
                 console.log('Error during record insertion:' + err);
@@ -38,17 +41,15 @@ function insertRecord(req, res) {
 
 function updateRecord(req, res) {
     Student.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (err, doc) => {
-        if (!err) {
-            res.redirect('student/list.hbs');
-        } else {
-            if (err.name == 'validationError') {
-                handlaValidationError(err, req.body);
-                res.render("student/addOrEdit.hbs", {
+        if (!err) { res.redirect('student/list'); } else {
+            if (err.name == 'ValidationError') {
+                handleValidationError(err, req.body);
+                res.render("student/addOrEdit", {
                     viewTitle: 'Update Student',
-                    employee: req.body
+                    student: req.body
                 });
             } else
-                console.log('Error during recoed update :' + err);
+                console.log('Error during record update : ' + err);
         }
     });
 }
@@ -60,7 +61,7 @@ router.get('/list', (req, res) => {
                 list: docs
             });
         } else {
-            console.log('Error in retrieving employee list :' + err);
+            console.log('Error in retrieving student list :' + err);
         }
     });
 });
@@ -94,8 +95,9 @@ router.get('/:id', (req, res) => {
 router.get('/delete/:id', (req, res) => {
     Student.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-            res.redirect('/student/list.hbs');
-        } else { console.log('Error in employee delete :' + err); }
+            res.redirect('/student/list');
+        } else { console.log('Error in student delete :' + err); }
     });
 });
+
 module.exports = router;
