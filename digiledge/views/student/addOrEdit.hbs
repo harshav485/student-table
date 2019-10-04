@@ -1,0 +1,32 @@
+<h1>{{viewTitle}}</h1>
+
+<form action="/student" method="POST" autocomplete="off">
+    <input type="hidden" name="_id" value="{{student._id}}">
+    <div class="form-group">
+       <label>FullName</label>
+         <input type="text" class="form-control" name="fullName" placeholder="full Name " value="{{student.fullName}}">
+        <div class="text-danger">
+            {{student.fullNameError}}
+        </div>
+     </div>
+    <div class="form-group">
+        <label>FatherName</label>
+          <input type="text" class="form-control" name="father_name" placeholder="Father Name" value="{{student.father_name}}">
+        <div class="text-danger">
+            {{student.father_nameError}}
+        </div>
+    </div>
+    <div class="form-row">
+    <div class="form-group col-md-6">
+    <label>Roll Number</label>
+    <input type="text" class="form-control" name="Roll_number" placeholder="Roll Number" value="{{student.Roll_number}}">
+    </div>
+    <div class="form-group col-md-6">
+    <label>Mobile</label>
+    <input type="text" class="form-control" name="Mobile" placeholder="Mobile Number" value="{{student.Mobile}}">
+    </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-info"><i class="fa fa-database"></i>  Submit</button>
+    </div>
+</form>

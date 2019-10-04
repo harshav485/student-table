@@ -1,0 +1,24 @@
+<h3><a class="btn btn-secondary" href="/student"><i class="fa fa-plus"></i> Create new</a> Student Table</h3>
+<table class="table table-striped">
+    <thead>
+        <th>Full Name</th>
+        <th>Father Name</th>
+        <th>Roll number</th>
+        <th>Mobile</th>
+        <th></th>
+    </thead>
+    <tbody>
+        {{#each list}}
+        <tr>
+            <td>{{this.fullName}}</td>
+            <td>{{this.father_name}}</td>
+            <td>{{this.Roll_number}}</td>
+            <td>{{this.Mobile}}</td>
+            <td>
+                <a href="/student/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                <a href="/student/delete/{{this._id}}"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
